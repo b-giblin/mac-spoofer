@@ -24,15 +24,16 @@ random_mac = ("52:54:00:%02x:%02x:%02x" % (
   random.randint(0, 255),
   random.randint(0, 255),
   ))
-# bring mac back up
-mac_up = "ifconfig eth0 up"
 
 
-subprocess.call(f"ifconfig {interface} down", shell=True)
-subprocess.call(f"ifconfig {interface} hw ether {random_mac}", shell=True)
-subprocess.call(f"ifconfig {interface} up", shell=True)
 
+# subprocess.call(f"ifconfig {interface} down", shell=True)
+# subprocess.call(f"ifconfig {interface} hw ether {random_mac}", shell=True)
+# subprocess.call(f"ifconfig {interface} up", shell=True)
 
+subprocess.call(["ifconfig", interface, "down"])
+subprocess.call(["ifconfig", interface, "hw", "ether", random_mac])
+subprocess.call(["ifconfig", interface, "up"])
 
 
 
