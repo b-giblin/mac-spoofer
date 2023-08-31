@@ -4,27 +4,29 @@ import subprocess
 
 parser = optparse.OptionParser()
 
-parser.add_option("-i", "--interface", dest="interface", help="interface to change its MAC address.")
+# CLI Help and Arguments
+# parser.add_option("-i", "--interface", dest="interface", help="interface to change its MAC address.")
+# parser.add_option("-m", "--mac", dest="random_mac", help="New Mac Address")
+# (options, arguments) = parser.parse_args()
+
 
 # specify the interface you wish to change the mac of
 interface = input("Specify the interface: ")
 
 
 try:
-  if interface == 'eth0' or 'wlan0':
-    user_interface = interface
+    if interface == "eth0" or "wlan0":
+        user_interface = interface
 except:
-  ("Error. Invalid interface specified.")
-
+    ("Error. Invalid interface specified.")
 
 
 # change mac to a random one
-random_mac = ("52:54:00:%02x:%02x:%02x" % (
-  random.randint(0, 255),
-  random.randint(0, 255),
-  random.randint(0, 255),
-  ))
-
+random_mac = "52:54:00:%02x:%02x:%02x" % (
+    random.randint(0, 255),
+    random.randint(0, 255),
+    random.randint(0, 255),
+)
 
 
 # subprocess.call(f"ifconfig {interface} down", shell=True)
@@ -34,11 +36,3 @@ random_mac = ("52:54:00:%02x:%02x:%02x" % (
 subprocess.call(["ifconfig", interface, "down"])
 subprocess.call(["ifconfig", interface, "hw", "ether", random_mac])
 subprocess.call(["ifconfig", interface, "up"])
-
-
-
-
-
-
-
-
